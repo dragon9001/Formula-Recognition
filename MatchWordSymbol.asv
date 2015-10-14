@@ -1,0 +1,7 @@
+function [BoxHandles,BoxSymbolMap] = WordSymbolMap(SymbolBounds,WordBounds)
+%% This function 
+% input WordBounds and SymbolBounds
+% output:
+% BoxHandles --- a Cell that contains m Box handles of this text line
+% BoxSymbolMap --- a 2*m Matrix,each column is the start and end Symbol position of Box  
+end 
