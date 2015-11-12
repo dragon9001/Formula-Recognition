@@ -4,8 +4,13 @@ function FormulaDetection(ppPath)
 imgrgb = imread(ppPath);
 imgGray = rgb2gray(imgrgb);
 
+[m,n] = size(imgGray);
+vertEdge = floor(m/1000)*100;
+horiEdge = floor(m/700)*100;
 % imgGray = imgGray(:,400:2100);
-imgGray = imgGray(301:2000,181:1500);
+% imgGray = imgGray(301:2000,181:1500);
+
+imgGray = imgGray(vertEdge:m-vertEdge,horiEdge:n-horiEdge);
 
 %% Produce BinaryImg
 BinaryImg = imgGray;
@@ -18,7 +23,7 @@ BinaryImg = ~BinaryImg;
 
 blksize = 2;
 
-[LinesPos,homogenizationImg] = TextLineSeg(imgGray,blksize);
+[LinesPos,homogenizationImg] = TextLineSeg2(imgGray,blksize);
 
 BinaryHomogenizationImg = homogenizationImg;
 BinaryHomogenizationImg(BinaryHomogenizationImg>0) = 1; % BinaryImage could also use imshow() to show it.
@@ -26,7 +31,9 @@ BinaryHomogenizationImg(BinaryHomogenizationImg>0) = 1; % BinaryImage could also
 %SymbolBounds and WordBounds uses Cell Structure.Each line Bounds
 %Infomation were stored in the same Cell. Cell has a lenth m,which is equal
 %to Line Number.
+tic
 [SymbolBounds,WordBounds] = WordSegment(imgGray,LinesPos);
+toc
 
 % [BoxHandles,BoxSymbolMap] = WordSymbolMap(SymbolBounds,WordBounds);
 % 

@@ -23,7 +23,7 @@ TempBlock = zeros(blocksize,blocksize);
 
 deltanorm = 0;
 HomoThreshold = 30;
-
+tic
 for i = 1:blockrows
     for j = 1:blockcols
         TempBlock = blkimg(:,:,i,j);
@@ -39,7 +39,7 @@ for i = 1:blockrows
         end
     end
 end
-
+toc
 homogeneousMatrix = homogeneousJudge(homogeneousJudgeMatrix);
 
 homogenizationImg = kron(homogeneousMatrix,255*ones(blocksize,blocksize));
